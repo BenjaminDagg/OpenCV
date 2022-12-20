@@ -4,6 +4,9 @@ import numpy as np
 from PIL import Image
 import time
 from pynput.mouse import Button, Controller as MouseController
+import pytesseract
+from re import sub
+from decimal import Decimal
 
 static_templates = {
     'play': 'play602.png',
@@ -15,6 +18,7 @@ monitor = {"top": 0, "left": 0, "width": 1920, "height": 1080}
 sct = mss.mss()
 frame = None
 mouse = MouseController();
+pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
 
 def convert_rgb_to_bgr(img):
     return img[:, :, ::-1]
@@ -88,11 +92,28 @@ def click_object(template,offset=(0,0)):
 def get_balance():
     click_object('balance')
     
-    x = mouse.position.x
-    y = mouse.position.y
-    print('x = {0}'.format(x))
-    print('y = {0}'.format(y))
+    pos = mouse.position
+    x = pos[0]
+    y = pos[1] + 30
+    print('x = {0}'.format(pos[0]))
+    print('y = {0}'.format(pos[1]))
+
+    rect = {"top": y, "left": x, "width": 200, "height": 50}
+    im = np.asarray(sct.grab(rect))
+    text = pytesseract.image_to_string(im)
+    
+    return text
 
 refresh_frame()
-#matches = scaled_find_template('play',frame)
-click_object('balance')
+balance_text_before = get_balance()
+balance_before = Decimal(sub(r'[^\d.]', '', balance_text_before))
+print(balance_before)
+
+refresh_frame()
+click_object('play')
+
+balance_text_after = get_balance()
+balance_after = Decimal(sub(r'[^\d.]', '', balance_text_after))
+print(balance_after)
+
+assert balance_after < balance_before
