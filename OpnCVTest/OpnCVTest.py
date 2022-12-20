@@ -1,5 +1,5 @@
 import cv2
-import mss
+import mss.tools
 import numpy as np
 from PIL import Image
 import time
@@ -60,7 +60,13 @@ def find_template(name, image=None,threshold=0.9):
 #img_gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 #img_rgb = cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
 
-refresh_frame()
-cv2.imshow("Test",frame)
+mon = {"top": 0, "left": 0, "width": 1920, "height": 1080}
+sct = mss.mss()
+i = np.asarray(sct.grab(mon))
+cv2.imshow("Test",i)
 cv2.waitKey()
+
+#refresh_frame()
+#cv2.imshow("Test",frame)
+#cv2.waitKey()
 #matches = find_template("play",0.9)
