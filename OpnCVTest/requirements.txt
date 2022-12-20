@@ -1,0 +1,13 @@
+mss==7.0.1
+numpy==1.24.0
+opencv-python==4.6.0.66
+packaging==22.0
+Pillow==9.3.0
+Pillow-PIL==0.1.dev0
+pip==21.2.3
+pyinput==0.3.2
+pynput==1.7.6
+pytesseract==0.3.10
+pywin32==305
+setuptools==57.4.0
+six==1.16.0
