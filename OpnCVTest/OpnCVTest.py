@@ -19,6 +19,7 @@ static_templates = {
 
 #convert button to greyscale
 templates = {k: cv2.imread(v,0) for (k,v) in static_templates.items() }
+balance_width, balance_height = templates['balance'].shape[::-1]
 
 #represents entire monitor
 monitor = {"top": 0, "left": 0, "width": 1920, "height": 1080}
@@ -45,7 +46,7 @@ def refresh_frame():
     frame = take_screenshot()
 
 #checks if a button image is on the screen
-def match_template(img_grayscale, template, threshold=0.9):
+def match_template(img_grayscale, template, threshold=0.8):
     res = cv2.matchTemplate(img_grayscale,template,cv2.TM_CCOEFF_NORMED)
     matches = np.where(res >= threshold)
 
@@ -63,7 +64,7 @@ def find_template(name, image=None,threshold=0.9):
 
     return match_template(image,templates['play'],threshold)
 
-def scaled_find_template(name, image=None, threshold=0.8, scales=[0.8,0.7,0.6,0.5,0.4,0.3,0.2,0.1,1.0, 0.9, 1.1,1.2,1.3,1.4,1.5,1.6,1.7,1.8,1.9,2.0]):
+def scaled_find_template(name, image=None, threshold=0.8, scales=[0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.1,1.2,1.3,1.4,1.5,1.6,1.7,1.8,1.9,2.0]):
         global frame
         global templates
         if image is None:
@@ -93,6 +94,7 @@ def click_object(template,offset=(0,0)):
     matches = scaled_find_template(template,frame)
     if np.shape(matches)[1] < 1:
         return
+
     x = matches[1][0] + offset[0]
     y = matches[0][0] + offset[1]
 
@@ -107,16 +109,17 @@ def get_balance():
     
     pos = mouse.position
     x = pos[0]
-    y = pos[1] + 30
+    y = pos[1] + balance_height
 
     rect = {"top": y, "left": x, "width": 200, "height": 50}
     im = np.asarray(sct.grab(rect))
     text = pytesseract.image_to_string(im)
-    
+
     return text
 
 
 refresh_frame()
+
 balance_text_before = get_balance()
 balance_before = Decimal(sub(r'[^\d.]', '', balance_text_before))
 print(balance_before)
