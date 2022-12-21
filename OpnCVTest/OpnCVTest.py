@@ -117,7 +117,7 @@ def get_balance():
 
     return text
 
-
+'''
 refresh_frame()
 
 balance_text_before = get_balance()
@@ -132,3 +132,4 @@ balance_after = Decimal(sub(r'[^\d.]', '', balance_text_after))
 print(balance_after)
 
 assert balance_after < balance_before
+'''

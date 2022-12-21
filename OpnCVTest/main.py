@@ -13,7 +13,7 @@ def main():
 
     #game.click_object('play')
 
-    game.click_object('symbol10')
+    #game.click_object('symbol10')
     print(game.matching_symbol_count('symbol10'))
     
 
