@@ -12,9 +12,9 @@ from decimal import Decimal
 
 #buttons
 static_templates = {
-    'play': 'play602.png',
-    'balance': 'balance.png',
-    'reconnect' : 'reconnect.png'
+    'play': './images/play602.png',
+    'balance': './images/balance.png',
+    'reconnect' : './images/reconnect.png'
 }
 
 #convert button to greyscale

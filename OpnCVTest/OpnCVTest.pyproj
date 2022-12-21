@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>39d35f13-ff65-47d6-9ea6-f7d5dd31374f</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>OpnCVTest.py</StartupFile>
+    <StartupFile>main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,6 +22,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Controller.py" />
+    <Compile Include="Game.py" />
+    <Compile Include="main.py" />
     <Compile Include="OpnCVTest.py" />
   </ItemGroup>
   <ItemGroup>
