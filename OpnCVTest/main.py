@@ -8,13 +8,8 @@ def main():
 
     controller.refresh_frame()
 
-    #balance_before = game.get_balance()
-    #print(balance_before)
-
-    #game.click_object('play')
-
-    #game.click_object('symbol10')
-    print(game.matching_symbol_count('symbol10'))
+    #assert game.is_rules_open == False
+    print(game.matching_symbol_count('symbolA'))
     
 
 if __name__ == "__main__":
